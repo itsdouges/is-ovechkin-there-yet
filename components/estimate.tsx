@@ -59,7 +59,7 @@ export function Estimate() {
       <div className="flex gap-0.5 flex-wrap max-w-screen-md">
         {Array.from({ length: totalGoalsNeededToBreak })
           .map((_, i) => i)
-          .toReversed()
+          .reverse()
           .map((goal) => (
             <div
               className={
