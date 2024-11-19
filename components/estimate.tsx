@@ -9,16 +9,18 @@ function humanDate(date: string) {
   }).format(new Date(date));
 }
 
+export const fetchCache = "force-no-store";
+
 export function Estimate() {
   const [stats, schedule] = suspend(
     () =>
       Promise.all([
-        fetch("https://api-web.nhle.com/v1/player/8471214/landing").then(
-          (res) => res.json()
-        ),
-        fetch(
-          "https://api-web.nhle.com/v1/club-schedule-season/WSH/20242025"
-        ).then((res) => res.json()),
+        fetch("https://api-web.nhle.com/v1/player/8471214/landing", {
+          cache: "no-cache",
+        }).then((res) => res.json()),
+        fetch("https://api-web.nhle.com/v1/club-schedule-season/WSH/20242025", {
+          cache: "no-cache",
+        }).then((res) => res.json()),
       ]),
     []
   );
@@ -45,6 +47,9 @@ export function Estimate() {
       <div className="text-9xl text-center font-bold">
         {gamesNeeded <= 0 ? "YES" : "NO"}
       </div>
+      <span className="font-semibold">
+        {currentGoalTotal} / {totalGoalsNeededToBreak} goals
+      </span>
       <div className="font-medium">
         But he&apos;ll do it at the{" "}
         <a
@@ -52,10 +57,11 @@ export function Estimate() {
           target="_blank"
           href={`https://nhl.com${estimatedGame.gameCenterLink}`}
         >
-          {estimatedGame.homeTeam.abbrev} vs. {estimatedGame.awayTeam.abbrev}
+          {estimatedGame.awayTeam.abbrev} vs. {estimatedGame.homeTeam.abbrev}
         </a>{" "}
         game on {humanDate(estimatedGame.gameDate)}, probably!
       </div>
+
       <div className="flex gap-0.5 flex-wrap max-w-screen-md">
         {Array.from({ length: totalGoalsNeededToBreak })
           .map((_, i) => i)

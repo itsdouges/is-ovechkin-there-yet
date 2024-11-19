@@ -11,9 +11,9 @@ export default function Home() {
         <a
           target="_blank"
           href="https://github.com/itsdouges/is-ovechkin-there-yet"
-          className="text-sm"
+          className="text-sm text-blue-400 underline"
         >
-          Made in Sydney, Australia by DOUGES.
+          Made in Sydney, Australia.
         </a>
       </main>
     </div>
