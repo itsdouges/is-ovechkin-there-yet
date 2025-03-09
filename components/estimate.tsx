@@ -26,8 +26,8 @@ export function Estimate() {
   );
   const { goals, gamesPlayed } = stats.featuredStats.regularSeason.subSeason;
   const goalsPerGame = goals / gamesPlayed;
-  const goalsNeeded = totalGoalsNeededToBreak - goalsToStartTheSeason;
-  const gamesNeeded = Math.ceil(goalsNeeded * goalsPerGame);
+  const goalsNeeded = totalGoalsNeededToBreak - goalsToStartTheSeason - goals;
+  const gamesNeeded = Math.ceil(goalsNeeded / goalsPerGame);
   const nextGameIndex = schedule.games.findIndex(
     (game: { startTimeUTC: string }) => {
       const startUTC = new Date(game.startTimeUTC);
